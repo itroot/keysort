@@ -15,8 +15,8 @@ import (
 
 func main() {
 	slice := []int{1, 2, 3, 4, 5}
-	keysort.Sort(slice, func(i int) []interface{} {
-		return []interface{}{slice[i]%2 == 1, slice[i]}
+	keysort.Sort(slice, func(i int) keysort.Sortable {
+		return keysort.Sequence{slice[i]%2 == 1, slice[i]}
 	})
 	fmt.Println(slice)
 }
