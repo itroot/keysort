@@ -12,6 +12,17 @@ func Sort(slice interface{}, key func(i int) []interface{}) {
 	})
 }
 
+type Sortable interface {
+	Less(other Sortable) bool
+}
+
+type StringDesc string
+
+func (s StringDesc) Less(other Sortable) bool {
+	others := other.(StringDesc)
+	return s > others
+}
+
 func less(lhs []interface{}, rhs []interface{}) bool {
 	if len(lhs) == 0 {
 		return true
@@ -22,6 +33,12 @@ func less(lhs []interface{}, rhs []interface{}) bool {
 	if lhs[0] == rhs[0] {
 		return less(lhs[1:], rhs[1:])
 	}
+	if l, ok := lhs[0].(Sortable); ok {
+		if r, ok := rhs[0].(Sortable); ok {
+			return l.Less(r)
+		}
+	}
+
 	if reflect.TypeOf(lhs[0]) == reflect.TypeOf(rhs[0]) {
 		switch reflect.TypeOf(lhs[0]).Kind() {
 		case reflect.String:

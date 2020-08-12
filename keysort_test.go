@@ -57,3 +57,13 @@ func TestSort_EvenOdd(t *testing.T) {
 		t.Fatal()
 	}
 }
+
+func TestSort_Desc(t *testing.T) {
+	slice := []int{2, 1, 3, 4, 5}
+	keysort.Sort(slice, func(i int) []interface{} {
+		return []interface{}{slice[i]%2 == 1, keysort.StringDesc(strconv.Itoa(slice[i]))}
+	})
+	if !reflect.DeepEqual(slice, []int{4, 2, 5, 3, 1}) {
+		t.Fatal()
+	}
+}
