@@ -5,15 +5,15 @@ import (
 	"sort"
 )
 
-// Sort will sort slice by comparing key function values
-func Sort(slice interface{}, key func(i int) []interface{}) {
-	sort.Slice(slice, func(i, j int) bool {
-		return less(key(i), key(j))
-	})
-}
-
 type Sortable interface {
 	Less(other Sortable) bool
+}
+
+// Sort will sort slice by comparing key function values
+func Sort(slice interface{}, key func(i int) Sortable) {
+	sort.Slice(slice, func(i, j int) bool {
+		return key(i).Less(key(j))
+	})
 }
 
 type StringDesc string
@@ -23,7 +23,11 @@ func (s StringDesc) Less(other Sortable) bool {
 	return s > others
 }
 
-func less(lhs []interface{}, rhs []interface{}) bool {
+type Sequence []interface{}
+
+func (s Sequence) Less(other Sortable) bool {
+	lhs := s
+	rhs := other.(Sequence)
 	if len(lhs) == 0 {
 		return true
 	}
@@ -31,7 +35,7 @@ func less(lhs []interface{}, rhs []interface{}) bool {
 		return false
 	}
 	if lhs[0] == rhs[0] {
-		return less(lhs[1:], rhs[1:])
+		return lhs[1:].Less(rhs[1:])
 	}
 	if l, ok := lhs[0].(Sortable); ok {
 		if r, ok := rhs[0].(Sortable); ok {
