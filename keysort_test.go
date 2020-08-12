@@ -67,3 +67,17 @@ func TestSort_Desc(t *testing.T) {
 		t.Fatal()
 	}
 }
+
+func TestSort_CustomType(t *testing.T) {
+	type CustomInt int
+	type CustomString string
+	slice := []CustomInt{2, 1, 3, 4, 5}
+	keysort.Sort(slice, func(i int) []interface{} {
+		var cs CustomString
+		cs = CustomString(strconv.Itoa(int(slice[i])))
+		return []interface{}{slice[i]%2 == 1, keysort.StringDesc(cs)}
+	})
+	if !reflect.DeepEqual(slice, []CustomInt{4, 2, 5, 3, 1}) {
+		t.Fatal(slice)
+	}
+}
