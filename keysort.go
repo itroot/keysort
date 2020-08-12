@@ -42,7 +42,7 @@ func less(lhs []interface{}, rhs []interface{}) bool {
 	if reflect.TypeOf(lhs[0]) == reflect.TypeOf(rhs[0]) {
 		switch reflect.TypeOf(lhs[0]).Kind() {
 		case reflect.String:
-			return lhs[0].(string) < rhs[0].(string)
+			return reflect.ValueOf(lhs[0]).String() < reflect.ValueOf(rhs[0]).String()
 		case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 			return reflect.ValueOf(lhs[0]).Uint() < reflect.ValueOf(rhs[0]).Uint()
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
