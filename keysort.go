@@ -23,6 +23,14 @@ func (s StringDesc) Less(other Sortable) bool {
 	return s > others
 }
 
+
+type BoolDesc bool
+
+func (s BoolDesc) Less(other Sortable) bool {
+	others := other.(BoolDesc)
+	return bool(s) && !bool(others)
+}
+
 type Sequence []interface{}
 
 func (s Sequence) Less(other Sortable) bool {
