@@ -111,6 +111,6 @@ func ExampleApplesAndOranges() {
 		fmt.Printf("%#v\n", fruit)
 	}
 	// Output:
-  // &keysort_test.Apple{taste:1, size:1, good:true}
-  // &keysort_test.Orange{taste:5, size:0, good:false}
+	// &keysort_test.Apple{taste:1, size:1, good:true}
+	// &keysort_test.Orange{taste:5, size:0, good:false}
 }

@@ -9,7 +9,7 @@ type Sortable interface {
 	Less(other Sortable) bool
 }
 
-// Sort will sort slice by comparing key function values
+ // Sort will sort slice by comparing key function values
 func Sort(slice interface{}, key func(i int) Sortable) {
 	sort.Slice(slice, func(i, j int) bool {
 		return key(i).Less(key(j))
@@ -22,7 +22,6 @@ func (s StringDesc) Less(other Sortable) bool {
 	others := other.(StringDesc)
 	return s > others
 }
-
 
 type BoolDesc bool
 
