@@ -1,3 +1,4 @@
+// package keysort implements sorting of sequences (slices) by defined rules
 package keysort
 
 import (
@@ -9,13 +10,14 @@ type Sortable interface {
 	Less(other Sortable) bool
 }
 
- // Sort will sort slice by comparing key function values
+// Sort will sort slice by comparing key function values
 func Sort(slice interface{}, key func(i int) Sortable) {
 	sort.Slice(slice, func(i, j int) bool {
 		return key(i).Less(key(j))
 	})
 }
 
+// StringDesc defines string type sorting in reverse order
 type StringDesc string
 
 func (s StringDesc) Less(other Sortable) bool {
@@ -23,6 +25,7 @@ func (s StringDesc) Less(other Sortable) bool {
 	return s > others
 }
 
+// BoolDesc defines bool type sorting in reverse order
 type BoolDesc bool
 
 func (s BoolDesc) Less(other Sortable) bool {

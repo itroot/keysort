@@ -25,6 +25,8 @@ func main() {
 will output `[2 4 1 3 5]`, first all even numbers in sorted order, and then all odd numbers in sorted order
 
 ## Other examples
-https://stackoverflow.com/a/63373689/1586620
+
+* https://stackoverflow.com/a/63373689/1586620
+* https://github.com/itroot/keysort/blob/master/example_test.go
 
 
